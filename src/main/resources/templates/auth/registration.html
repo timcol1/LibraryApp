@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration user</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+<h1 style="text-align: center">Реєстрація</h1>
+<div class="d-flex justify-content-center" style="margin-top: 50px">
+    <form th:method="POST" th:action="@{/people}" th:object="${person}">
+        <div class="form-group">
+            <label for="exampleInputEmail1">Логін</label>
+            <input th:field = "*{username}" type="text" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                   placeholder="Ведіть логін">
+            <div th:errors="*{username}" style="color:red">Error</div>
+            <br>
+        </div>
+        <div class="form-group">
+            <label for="exampleInputPassword1">Пароль</label>
+            <input th:field = "*{password}" type="password" name="password" class="form-control" id="exampleInputPassword1"
+                   placeholder="Ведіть пароль">
+            <div th:errors="*{password}" style="color:red">Error</div>
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="namePerson">Введіть прізвище та ім'я людини</label>
+            <input type="text" class="form-control" id="namePerson" th:field="*{name}"
+                   placeholder="Ведіть людини книги">
+            <div style="color: red" th:errors="*{name}">Name Error</div>
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="dateBirthPerson">Введіть дату народження людини в форматі дд-мм-рррр</label>
+            <input type="text" class="form-control" id="dateBirthPerson" th:field="*{year}"
+                   placeholder="Дата народження людини">
+            <div style="color: red" th:errors="*{year}">Name Error</div>
+        </div>
+        <a href="/auth/login">Повернутись до логіну</a>
+        <br>
+        <br>
+        <button type="submit" class="btn btn-primary">Створити людинну</button>
+    </form>
+</div>
+</body>
+</html>
