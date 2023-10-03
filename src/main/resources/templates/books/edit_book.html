@@ -14,7 +14,7 @@
 <body>
 <header th:insert="template/header::header"></header>
 <div class="d-flex justify-content-center" style="margin-top: 50px">
-    <form th:method="PATCH" th:action="@{/library/{id}(id = ${book.getId()})}" th:object="${book}">
+    <form th:method="PATCH" th:action="@{/librarian/{id}(id = ${book.getId()})}" th:object="${book}">
         <div class="form-group">
             <label for="nameBook">Назва книги</label>
             <input type="text" class="form-control" id="nameBook" th:field="*{name}" placeholder="Ведіть назву книги">

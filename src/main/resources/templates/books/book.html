@@ -23,12 +23,12 @@
     <p th:text="'Ця книга взята : ' + ${book.getOwner().getName()}"></p>
 </div>
 <div th:if="${book.getOwner()}">
-    <form th:method="PATCH" th:action = "@{/library/{id}/release(id = ${book.getId()})}">
+    <form th:method="PATCH" th:action = "@{/librarian/{id}/release(id = ${book.getId()})}">
         <input class="btn btn-primary" type="submit" value="Звільнити цю книгу"/>
     </form>
 </div>
 <br>
-<form th:method="PATCH" th:action = "@{/library/{id}/appoint(id = ${book.getId()})}"  th:unless = "${book.getOwner()}">
+<form th:method="PATCH" th:action = "@{/librarian/{id}/appoint(id = ${book.getId()})}"  th:unless = "${book.getOwner()}">
     <label for="select_person">Ця книга є вільною то ж ви можете їй назначить читача</label>
     <select id = "select_person" th:object = "${person}" th:field = "*{id}">
         <option th:each = "person : ${people}" th:text = "${person.getName()}" th:value = "${person.getId()}"></option>
@@ -37,10 +37,10 @@
 </form>
 
 
-<a th:href="@{/library/{id}/edit(id = ${book.getId()})}">Змінити дані книги</a>
+<a th:href="@{/librarian/{id}/edit(id = ${book.getId()})}">Змінити дані книги</a>
 <br><br>
 
-<form th:method="DELETE" th:action="@{/library/{id}(id = ${book.getId()})}">
+<form th:method="DELETE" th:action="@{/librarian/{id}(id = ${book.getId()})}">
     <input class="btn btn-primary" type="submit" value="Видалити цю книгу"/>
 </form>
 </body>

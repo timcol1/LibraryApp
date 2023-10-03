@@ -24,7 +24,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav">
             <li style="margin-left: 30px" class="nav-item">
-                <a class="nav-link ml-4" href="/library">Книги</a>
+                <a class="nav-link ml-4" href="/librarian">Книги</a>
             </li>
             <li class="nav-item" style="margin-left: 30px">
                 <a class="nav-link" href="/people">Люди</a>
@@ -37,6 +37,9 @@
             </div>
         </form>
     </div>
+    <form th:action="@{/logout}" th:method="POST">
+        <input style="margin-right: 30px" type="submit" class="btn btn-primary" value="Розлогінитись"/>
+    </form>
 </nav>
 <h1 style="text-align: center" th:if="${search}">Знайдені люди</h1>
 <br>

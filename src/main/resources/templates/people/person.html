@@ -26,7 +26,7 @@
 <div th:if="${!#lists.isEmpty(books)}">
     <h2>Книги які взяв це користувач</h2>
     <div th:each="book : ${books}">
-        <a th:href="@{/library/{id}(id = ${book.getId()})}" th:text="${book.getName()}"></a>
+        <a th:href="@{/librarian/{id}(id = ${book.getId()})}" th:text="${book.getName()}"></a>
         <span th:text="', ' + ${book.getAuthorName()}"></span>
     </div>
 </div>

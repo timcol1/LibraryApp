@@ -29,7 +29,7 @@
     </style>
 </head>
 <body>
-<nav th:fragment="header" class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
     <h2>Бібліотека</h2>
     <button class="navbar-toggler"  type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -37,23 +37,26 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav">
             <li style="margin-left: 30px" class="nav-item">
-                <a class="nav-link ml-4" href="/library">Книги</a>
+                <a class="nav-link ml-4" href="/librarian">Книги</a>
             </li>
             <li class="nav-item" style="margin-left: 30px">
                 <a class="nav-link" href="/people">Люди</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0" th:method="GET" action=/library>
+        <form class="form-inline my-2 my-lg-0" th:method="GET" action=/librarian>
             <div class = "d-flex justify-content-center" style="margin-left: 700px">
                 <input class="form-control mr-sm-2" name="search" type="search" placeholder="Пошук книг" aria-label="Search">
                 <button style = "margin-left: 20px" class="btn btn-outline-success my-2 my-sm-0" type="submit">Пошук</button>
             </div>
         </form>
+
     </div>
+    <form th:action="@{/logout}" th:method="POST">
+        <input style="margin-right: 30px" type="submit" class="btn btn-primary" value="Розлогінитись"/>
+    </form>
 </nav>
 
-<form th:action="@{/library}">
-
+<form th:action="@{/librarian}">
     <label class = "sort_heading" for="select_sort_method">Сортування книг</label>
     <select name="sort" id="select_sort_method">
         <!--Supplement an id here instead of using 'name'-->
@@ -76,10 +79,10 @@
         <div class="d-flex justify-content-center">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="/library">Всі книги на сторінці</a></li>
-                    <li class="page-item"><a class="page-link" href="/library?page=0&items_per_page=6">1</a></li>
-                    <li class="page-item"><a class="page-link" href="/library?page=1&items_per_page=6">2</a></li>
-                    <li class="page-item"><a class="page-link" href="/library?page=2&items_per_page=6">3</a></li>
+                    <li class="page-item"><a class="page-link" href="/librarian">Всі книги на сторінці</a></li>
+                    <li class="page-item"><a class="page-link" href="/librarian?page=0&items_per_page=6">1</a></li>
+                    <li class="page-item"><a class="page-link" href="/librarian?page=1&items_per_page=6">2</a></li>
+                    <li class="page-item"><a class="page-link" href="/librarian?page=2&items_per_page=6">3</a></li>
                 </ul>
             </nav>
 
@@ -87,7 +90,7 @@
     </div>
 </div>
 <div class="d-flex justify-content-center">
-    <a class="btn btn-primary" href="/library/new" role="button">Додати книгу до бібліотеки</a>
+    <a class="btn btn-primary" href="/librarian/new" role="button">Додати книгу до бібліотеки</a>
 </div>
 <h1 style="text-align: center" th:if="${search}">Знайдені книги</h1>
 <br>
@@ -96,7 +99,7 @@
 <main>
     <div class="book_div" th:each="book : ${books}">
         <span>Назва книги : </span>
-        <a th:href="@{/library/{id}(id = ${book.getId()})}" th:text="${book.getName()}"></a>
+        <a th:href="@{/librarian/{id}(id = ${book.getId()})}" th:text="${book.getName()}"></a>
         <p th:text="'Автор книги : ' + ${book.getAuthorName()}">author Book</p>
         <p th:text="'Рік написання книги : ' + ${book.getYear()}">year book</p>
         <p style="color: red" th:if="${book.getOwner()}">Ця книга зайнята</p>

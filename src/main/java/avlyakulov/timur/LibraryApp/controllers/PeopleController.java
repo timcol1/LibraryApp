@@ -4,6 +4,7 @@ package avlyakulov.timur.LibraryApp.controllers;
 import avlyakulov.timur.LibraryApp.models.Person;
 import avlyakulov.timur.LibraryApp.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +15,13 @@ import java.util.Optional;
 @RequestMapping("/people")
 public class PeopleController {
     private final PersonService personService;
+    private final PasswordEncoder passwordEncoder;
+
 
     @Autowired
-    public PeopleController(PersonService personService) {
+    public PeopleController(PersonService personService, PasswordEncoder passwordEncoder) {
         this.personService = personService;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -50,6 +54,8 @@ public class PeopleController {
 
     @PostMapping()
     public String createPerson(@ModelAttribute Person person) {
+        person.setPassword(passwordEncoder.encode(person.getPassword()));
+        person.setRole("ROLE_USER");
         personService.createPerson(person);
         return "redirect:/people";
     }

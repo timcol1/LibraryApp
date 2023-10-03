@@ -16,7 +16,7 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/library")
+@RequestMapping("/librarian")
 public class BookController {
     private BookService bookService;
     private final PersonService personService;
@@ -61,7 +61,7 @@ public class BookController {
             return "/books/add_book";
         }
         bookService.createBook(book);
-        return "redirect:/library";
+        return "redirect:/librarian";
     }
 
     @GetMapping("/{id}")
@@ -88,24 +88,24 @@ public class BookController {
             return "/books/edit_book";
         }
         bookService.editBook(id, book);
-        return "redirect:/library/{id}";
+        return "redirect:/librarian/{id}";
     }
 
     @DeleteMapping("/{id}")
     public String deleteBook(@PathVariable int id) {
         bookService.deleteBook(id);
-        return "redirect:/library";
+        return "redirect:/librarian";
     }
 
     @PatchMapping("/{id}/appoint")
     public String appointOwnerForBook(@PathVariable int id, @ModelAttribute Person person) {
         bookService.appointOwnerForBook(person, id);
-        return "redirect:/library";
+        return "redirect:/librarian";
     }
 
     @PatchMapping("/{id}/release")
     public String appointOwnerForBook(@PathVariable int id) {
         bookService.releaseBookFromPerson(id);
-        return "redirect:/library";
+        return "redirect:/librarian";
     }
 }

@@ -6,6 +6,7 @@ import avlyakulov.timur.LibraryApp.repository.PersonRepository;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,16 +16,19 @@ import java.util.Optional;
 
 @Service
 public class PersonService {
+
+    private final PasswordEncoder passwordEncoder;
+
     private final PersonRepository personRepository;
 
     @Autowired
-    public PersonService(PersonRepository personRepository) {
+    public PersonService(PasswordEncoder passwordEncoder, PersonRepository personRepository) {
+        this.passwordEncoder = passwordEncoder;
         this.personRepository = personRepository;
     }
 
     public List<Person> getPeople() {
-
-        return personRepository.findAll(Sort.by("name"));
+        return personRepository.findAll(Sort.by("name")).stream().filter(p -> p.getRole().equals("ROLE_USER")).toList();
     }
 
     public Person findById(int id) {
@@ -34,6 +38,8 @@ public class PersonService {
 
     @Transactional
     public void createPerson(Person person) {
+        person.setPassword(passwordEncoder.encode(person.getPassword()));
+        person.setRole("ROLE_USER");
         personRepository.save(person);
     }
 
@@ -64,7 +70,7 @@ public class PersonService {
         if (name.equals(""))
             return Collections.emptyList();
         else {
-            return personRepository.findAllByNameStartingWith(name);
+            return personRepository.findAllByNameStartingWith(name).stream().filter(p -> p.getRole().equals("ROLE_USER")).toList();
         }
     }
 

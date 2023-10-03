@@ -47,6 +47,9 @@
       </div>
     </form>
   </div>
+  <form th:action="@{/logout}" th:method="POST">
+    <input style="margin-right: 30px" type="submit" class="btn btn-primary" value="Розлогінитись"/>
+  </form>
 </nav>
 
 <form th:action="@{/user/books}">
@@ -73,10 +76,10 @@
     <div class="d-flex justify-content-center">
       <nav aria-label="Page navigation example">
         <ul class="pagination">
-          <li class="page-item"><a class="page-link" href="/library">Всі книги на сторінці</a></li>
-          <li class="page-item"><a class="page-link" href="/library?page=0&items_per_page=6">1</a></li>
-          <li class="page-item"><a class="page-link" href="/library?page=1&items_per_page=6">2</a></li>
-          <li class="page-item"><a class="page-link" href="/library?page=2&items_per_page=6">3</a></li>
+          <li class="page-item"><a class="page-link" href="/user/books">Всі книги на сторінці</a></li>
+          <li class="page-item"><a class="page-link" href="/user/books?page=0&items_per_page=6">1</a></li>
+          <li class="page-item"><a class="page-link" href="/user/books?page=1&items_per_page=6">2</a></li>
+          <li class="page-item"><a class="page-link" href="/user/books?page=2&items_per_page=6">3</a></li>
         </ul>
       </nav>
 
