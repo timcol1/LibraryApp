@@ -45,6 +45,7 @@
 <br>
 <h3 style="text-align: center" th:if="${#lists.isEmpty(people)}">Жодної людини не було знайдено</h3>
 <main>
+    <h1>Читачі даної бібліотеки</h1>
     <div th:each="person : ${people}">
         <a th:href="@{/people/{id}(id = ${person.getId()})}" th:text="${person.getName()} + ', ' + ${person.getYear()}"></a>
     </div>

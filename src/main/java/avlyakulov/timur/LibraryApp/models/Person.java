@@ -21,7 +21,7 @@ public class Person {
     @Size(min = 2, max = 10, message = "Ваш нікнейм повинен бути від 2 до 10 символів")
     private String username;
 
-    @Size(min = 6, max = 20, message = "Ваш пароль повинен бути від 6 до 20 символів")
+    @Size(min = 6, message = "Ваш пароль повинен бути від 6 символів")
     private String password;
 
     private String role;

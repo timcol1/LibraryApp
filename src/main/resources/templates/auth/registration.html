@@ -9,7 +9,7 @@
 <body>
 <h1 style="text-align: center">Реєстрація</h1>
 <div class="d-flex justify-content-center" style="margin-top: 50px">
-    <form th:method="POST" th:action="@{/people}" th:object="${person}">
+    <form th:method="POST" th:action="@{/auth/registration}" th:object="${person}">
         <div class="form-group">
             <label for="exampleInputEmail1">Логін</label>
             <input th:field = "*{username}" type="text" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
@@ -25,9 +25,9 @@
         </div>
         <br>
         <div class="form-group">
-            <label for="namePerson">Введіть прізвище та ім'я людини</label>
+            <label for="namePerson">Прізвище та ім'я людини</label>
             <input type="text" class="form-control" id="namePerson" th:field="*{name}"
-                   placeholder="Ведіть людини книги">
+                   placeholder="Ведіть прізвище та ім'я людини">
             <div style="color: red" th:errors="*{name}">Name Error</div>
         </div>
         <br>
@@ -40,7 +40,7 @@
         <a href="/auth/login">Повернутись до логіну</a>
         <br>
         <br>
-        <button type="submit" class="btn btn-primary">Створити людинну</button>
+        <button type="submit" class="btn btn-primary">Створити людину</button>
     </form>
 </div>
 </body>

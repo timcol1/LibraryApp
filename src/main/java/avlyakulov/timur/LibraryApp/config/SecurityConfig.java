@@ -24,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //все имеют доступ к этой странице чтоб пройти систему логина
                 .antMatchers("/auth/login", "/error", "/auth/registration").permitAll()
                 //но для всех других запросов пользователь должен быть аутентифицирован
-                .antMatchers("/librarian/**").hasAnyRole("LIBRARIAN", "ADMIN")
+                .antMatchers("/librarian/**", "/people/**").hasAnyRole("LIBRARIAN", "ADMIN")
                 .antMatchers("/user/**").hasAnyRole("USER", "LIBRARIAN", "ADMIN")
                 .anyRequest().authenticated()
                 .and()
