@@ -39,6 +39,9 @@
       <li style="margin-left: 30px" class="nav-item">
         <a class="nav-link ml-4" href="/user/books">Книги</a>
       </li>
+      <li style="margin-left: 30px" class="nav-item">
+        <a class="nav-link ml-4" href="/user/taken_books">Взяті книги</a>
+      </li>
     </ul>
     <form class="form-inline my-2 my-lg-0" th:method="GET" action=/user/books>
       <div class = "d-flex justify-content-center" style="margin-left: 700px">
@@ -71,6 +74,22 @@
   <button type="submit">Застосувати</button>
 </form>
 
+
+
+<h1 style="text-align: center" th:if="${search}">Знайдені книги</h1>
+<br>
+<h3 style="text-align: center" th:if="${#lists.isEmpty(books)}">Жодної книги не було знайдено</h3>
+
+<main>
+  <div class="book_div" th:each="book : ${books}">
+    <p th:text="'Назва книги : ' + ${book.getName()}">author Book</p>
+    <p th:text="'Автор книги : ' + ${book.getAuthorName()}">author Book</p>
+    <p th:text="'Рік написання книги : ' + ${book.getYear()}">year book</p>
+    <p style="color: red" th:if="${book.getOwner()}">Ця книга зайнята</p>
+    <p style="color: green" th:unless="${book.getOwner()}">Ця книга вільна</p>
+  </div>
+</main>
+
 <div class="container" style="width: auto ">
   <div class="row" style="width: auto">
     <div class="d-flex justify-content-center">
@@ -86,19 +105,5 @@
     </div>
   </div>
 </div>
-
-<h1 style="text-align: center" th:if="${search}">Знайдені книги</h1>
-<br>
-<h3 style="text-align: center" th:if="${#lists.isEmpty(books)}">Жодної книги не було знайдено</h3>
-
-<main>
-  <div class="book_div" th:each="book : ${books}">
-    <p th:text="'Назва книги : ' + ${book.getName()}">author Book</p>
-    <p th:text="'Автор книги : ' + ${book.getAuthorName()}">author Book</p>
-    <p th:text="'Рік написання книги : ' + ${book.getYear()}">year book</p>
-    <p style="color: red" th:if="${book.getOwner()}">Ця книга зайнята</p>
-    <p style="color: green" th:unless="${book.getOwner()}">Ця книга вільна</p>
-  </div>
-</main>
 </body>
 </html>

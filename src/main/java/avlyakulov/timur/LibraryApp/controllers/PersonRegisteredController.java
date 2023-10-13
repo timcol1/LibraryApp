@@ -1,6 +1,10 @@
 package avlyakulov.timur.LibraryApp.controllers;
 
+import avlyakulov.timur.LibraryApp.security.PersonDetails;
 import avlyakulov.timur.LibraryApp.service.BookService;
+import avlyakulov.timur.LibraryApp.service.PersonService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,9 +16,11 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/user")
 public class PersonRegisteredController {
+    private final PersonService personService;
     private final BookService bookService;
 
-    public PersonRegisteredController(BookService bookService) {
+    public PersonRegisteredController(PersonService personService, BookService bookService) {
+        this.personService = personService;
         this.bookService = bookService;
     }
 
@@ -36,5 +42,13 @@ public class PersonRegisteredController {
             model.addAttribute("books", bookService.getListBooks());
         }
         return "user/list_books";
+    }
+
+    @GetMapping("/taken_books")
+    public String getViewOfBooksTakenByUser(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
+        model.addAttribute("books", personService.getBooksByPersonId(personDetails.getPerson().getId()));
+        return "user/list_book_taken";
     }
 }

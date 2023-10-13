@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional(readOnly = true)
 public class PersonService {
 
     private final PasswordEncoder passwordEncoder;
