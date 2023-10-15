@@ -12,7 +12,9 @@
     </style>
 </head>
 <body>
-<header th:insert="template/header::header"></header>
+
+<header th:insert="template/header_librarian :: header"></header>
+
 <div class="d-flex justify-content-center" style="margin-top: 50px">
     <form th:method="POST" th:action="@{/people}" th:object="${person}">
         <div class="form-group">

@@ -1,0 +1,42 @@
+<div th:fragment="header">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <h2>Бібліотека</h2>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                <li style="margin-left: 30px" class="nav-item">
+                    <a class="nav-link ml-4" href="/librarian">Книги</a>
+                </li>
+                <li style="margin-left: 30px" class="nav-item">
+                    <a class="nav-link ml-4" href="/people">Люди</a>
+                </li>
+            </ul>
+            <form th:if="${books}" style="margin-left: 20%" class="form-inline my-2 my-lg-0" th:method="GET"
+                  action=/librarian>
+                <div class="d-flex justify-content-center">
+                    <input class="form-control mr-sm-2" name="search" type="search" placeholder="Пошук книг"
+                           aria-label="Search">
+                    <button style="margin-left: 20px" class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                        Пошук
+                    </button>
+                </div>
+            </form>
+            <form th:if="${people}" style="margin-left: 20%" class="form-inline my-2 my-lg-0" th:method="GET"
+                  action=/people>
+                <div class="d-flex justify-content-center">
+                    <input class="form-control mr-sm-2" name="search" type="search" placeholder="Пошук людей"
+                           aria-label="Search">
+                    <button style="margin-left: 20px" class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                        Пошук
+                    </button>
+                </div>
+            </form>
+        </div>
+        <form th:action="@{/logout}" th:method="POST">
+            <input style="margin-right: 30px" type="submit" class="btn btn-primary" value="Розлогінитись"/>
+        </form>
+    </nav>
+</div>

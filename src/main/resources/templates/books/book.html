@@ -13,7 +13,9 @@
     </style>
 </head>
 <body>
-<header th:insert="template/header::header"></header>
+
+<header th:insert="template/header_librarian :: header"></header>
+
 
 <p th:text="'Назва книги : ' + ${book.getName()}"></p>
 <p th:text="'Автор книги : ' + ${book.getAuthorName()}">author Book</p>

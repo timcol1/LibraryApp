@@ -94,9 +94,12 @@ public class BookService {
     }
 
     public List<Book> findBookByNameStartingWith(String name) {
-        if (name.equals(""))
+        if (name.isEmpty())
             return Collections.emptyList();
         else {
+            char[] chars = name.toCharArray();
+            chars[0] = Character.toUpperCase(chars[0]);
+            name = new String(chars);
             return bookRepository.findAllByNameStartingWith(name);
         }
     }

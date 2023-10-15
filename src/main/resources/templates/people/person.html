@@ -14,7 +14,9 @@
     </style>
 </head>
 <body>
-<header th:insert="template/header::header"></header>
+
+<header th:insert="template/header_librarian :: header"></header>
+
 <p th:text="'Повне ім\'я людини : ' + ${person.getName()}"></p>
 <p id="date" th:text="'Дата народження людини : ' + ${person.getYear()}">date Book</p>
 <p th:text="'Логін людини в бібліотеці : ' + ${person.getUsername()}">date Book</p>
