@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import java.util.Date;
 
 @Entity
 @Table(name = "book")
@@ -24,6 +25,10 @@ public class Book {
     @Min(value = 100, message = "Ви вели неправильну дату написання книги")
     @Max(value = 2023, message = "Ви вели неправильну дату написання книги")
     private int year;
+
+    @Column(name = "given_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date givenAt;
 
     @ManyToOne
     @JoinColumn(name = "id_person", referencedColumnName = "id")
@@ -66,6 +71,14 @@ public class Book {
         this.year = year;
     }
 
+    public Date getGivenAt() {
+        return givenAt;
+    }
+
+    public void setGivenAt(Date givenAt) {
+        this.givenAt = givenAt;
+    }
+
     public Person getOwner() {
         return owner;
     }
@@ -73,5 +86,4 @@ public class Book {
     public void setOwner(Person owner) {
         this.owner = owner;
     }
-
 }

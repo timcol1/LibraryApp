@@ -20,6 +20,7 @@
 <p th:text="'Назва книги : ' + ${book.getName()}"></p>
 <p th:text="'Автор книги : ' + ${book.getAuthorName()}">author Book</p>
 <p th:text="'Рік написання книги : ' + ${book.getYear()}">date Book</p>
+<p th:if = "${book.getGivenAt()}" th:text="'Книга була взята : ' + ${book.getGivenAt()}">when Book was taken</p>
 
 <div th:if="${book.getOwner()}">
     <p th:text="'Ця книга взята : ' + ${book.getOwner().getName()}"></p>
@@ -35,7 +36,7 @@
     <select id = "select_person" th:object = "${person}" th:field = "*{id}">
         <option th:each = "person : ${people}" th:text = "${person.getName()}" th:value = "${person.getId()}"></option>
     </select>
-    <input type="submit" value="Назначити цьому корстувачу цю книгу"/>
+    <input class="btn btn-primary" type="submit" value="Назначити цьому користувачу цю книгу"/>
 </form>
 
 
