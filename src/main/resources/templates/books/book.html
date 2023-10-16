@@ -20,21 +20,22 @@
 <p th:text="'Назва книги : ' + ${book.getName()}"></p>
 <p th:text="'Автор книги : ' + ${book.getAuthorName()}">author Book</p>
 <p th:text="'Рік написання книги : ' + ${book.getYear()}">date Book</p>
-<p th:if = "${book.getGivenAt()}" th:text="'Книга була взята : ' + ${book.getGivenAt()}">when Book was taken</p>
+<p th:if="${book.getGivenAt()}" th:text="'Книга була взята : ' + ${book.getSimpleDateFormat()}">when Book was taken</p>
+<p th:unless= "${book.getGivenAt()}" style="color: green" th:text= "'Книга в даний момент вільна'">when Book was taken</p>
 
 <div th:if="${book.getOwner()}">
     <p th:text="'Ця книга взята : ' + ${book.getOwner().getName()}"></p>
 </div>
 <div th:if="${book.getOwner()}">
-    <form th:method="PATCH" th:action = "@{/librarian/{id}/release(id = ${book.getId()})}">
+    <form th:method="PATCH" th:action="@{/librarian/{id}/release(id = ${book.getId()})}">
         <input class="btn btn-primary" type="submit" value="Звільнити цю книгу"/>
     </form>
 </div>
 <br>
-<form th:method="PATCH" th:action = "@{/librarian/{id}/appoint(id = ${book.getId()})}"  th:unless = "${book.getOwner()}">
+<form th:method="PATCH" th:action="@{/librarian/{id}/appoint(id = ${book.getId()})}" th:unless="${book.getOwner()}">
     <label for="select_person">Ця книга є вільною то ж ви можете їй назначить читача</label>
-    <select id = "select_person" th:object = "${person}" th:field = "*{id}">
-        <option th:each = "person : ${people}" th:text = "${person.getName()}" th:value = "${person.getId()}"></option>
+    <select id="select_person" th:object="${person}" th:field="*{id}">
+        <option th:each="person : ${people}" th:text="${person.getName()}" th:value="${person.getId()}"></option>
     </select>
     <input class="btn btn-primary" type="submit" value="Назначити цьому користувачу цю книгу"/>
 </form>

@@ -9,7 +9,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,8 +36,18 @@ public class BookService {
     }
 
     public Book getBook(int id) {
-        Optional<Book> book = bookRepository.findById(id);
-        return book.orElse(null);
+        Optional<Book> optionalBook = bookRepository.findById(id);
+        if (optionalBook.isPresent()) {
+            Book book = optionalBook.get();
+            if (book.getGivenAt() != null) {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+                String formatDate = simpleDateFormat.format(book.getGivenAt());
+                book.setSimpleDateFormat(formatDate);
+            }
+            return book;
+        } else {
+            return null;
+        }
     }
 
     @Transactional
@@ -52,12 +65,14 @@ public class BookService {
     public void appointOwnerForBook(Person newOwner, int id) {
         Book book = bookRepository.findById(id).get();
         book.setOwner(newOwner);
+        book.setGivenAt(new Date());
     }
 
     @Transactional
     public void releaseBookFromPerson(int id) {
         Book book = bookRepository.findById(id).get();
         book.setOwner(null);
+        book.setGivenAt(null);
     }
 
     public boolean checkOwner(int id) {

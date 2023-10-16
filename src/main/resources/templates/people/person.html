@@ -30,6 +30,7 @@
     <div th:each="book : ${books}">
         <a th:href="@{/librarian/{id}(id = ${book.getId()})}" th:text="${book.getName()}"></a>
         <span th:text="', ' + ${book.getAuthorName()}"></span>
+        <span th:if = "${book.isOverdue()}" th:style="${book.isOverdue() ? 'color : red;' : ''}"> - ця книга вже просрочена</span>
     </div>
 </div>
 </body>

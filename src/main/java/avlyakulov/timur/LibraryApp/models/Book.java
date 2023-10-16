@@ -30,6 +30,12 @@ public class Book {
     @Temporal(TemporalType.TIMESTAMP)
     private Date givenAt;
 
+    @Transient
+    private String simpleDateFormat;
+
+    @Transient
+    private boolean overdue;
+
     @ManyToOne
     @JoinColumn(name = "id_person", referencedColumnName = "id")
     private Person owner;
@@ -77,6 +83,22 @@ public class Book {
 
     public void setGivenAt(Date givenAt) {
         this.givenAt = givenAt;
+    }
+
+    public String getSimpleDateFormat() {
+        return simpleDateFormat;
+    }
+
+    public void setSimpleDateFormat(String simpleDateFormat) {
+        this.simpleDateFormat = simpleDateFormat;
+    }
+
+    public boolean isOverdue() {
+        return overdue;
+    }
+
+    public void setOverdue(boolean overdue) {
+        this.overdue = overdue;
     }
 
     public Person getOwner() {
