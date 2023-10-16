@@ -18,7 +18,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/librarian")
 public class BookController {
-    private BookService bookService;
+    private final BookService bookService;
     private final PersonService personService;
     private final BookValidator bookValidator;
 

@@ -16,7 +16,7 @@ import java.util.Optional;
 @Service
 @Transactional(readOnly = true)
 public class BookService {
-    private BookRepository bookRepository;
+    private final BookRepository bookRepository;
 
     @Autowired
     public BookService(BookRepository bookRepository) {

@@ -71,6 +71,9 @@ public class PersonService {
         if (name.equals(""))
             return Collections.emptyList();
         else {
+            char[] chars = name.toCharArray();
+            chars[0] = Character.toUpperCase(chars[0]);
+            name = new String(chars);
             return personRepository.findAllByNameStartingWith(name).stream().filter(p -> p.getRole().equals("ROLE_USER")).toList();
         }
     }
