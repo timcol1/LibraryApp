@@ -1,82 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Books</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  <style>
-    body {
-      font-size: 30px;
-    }
-    main {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-    }
+    <meta charset="UTF-8">
+    <title>Books</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            font-size: 30px;
+        }
+        main {
+            flex: 1 1 auto;
+        }
 
-    .book_div {
-      border: solid black 3px;
-      border-radius: 30px;
-      margin: 20px;
-      padding: 20px;
-      font-size: 25px;
-      text-align: center;
-    }
-    .sort_heading {
-      font-size: 20px;
-      font-weight: bold;
-    }
-  </style>
+        .wrapper {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .book_div {
+            border: solid black 3px;
+            border-radius: 30px;
+            margin: 20px;
+            padding: 20px;
+            font-size: 25px;
+            text-align: center;
+        }
+
+        .sort_heading {
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 <header th:insert="template/header_user :: header"></header>
-<form th:action="@{/user/books}">
-
-  <label class = "sort_heading" for="select_sort_method">Сортування книг</label>
-  <select name="sort" id="select_sort_method">
-    <option value="name" selected>Назва</option>
-    <option value="year">Рік</option>
-  </select>
-
-  <label class = "sort_heading" for="select_sort_order">Порядок сортування книг</label>
-  <select name="order" id="select_sort_order">
-    <option value="desc" selected>Спадаючий</option>
-    <option value="asc">Зростаючий</option>
-  </select>
-
-  <button type="submit">Застосувати</button>
-</form>
-
-
-
-<h1 style="text-align: center" th:if="${search}">Знайдені книги</h1>
-<br>
-<h3 style="text-align: center" th:if="${#lists.isEmpty(books)}">Жодної книги не було знайдено</h3>
 
 <main>
-  <div class="book_div" th:each="book : ${books}">
-    <p th:text="'Назва книги : ' + ${book.getName()}">author Book</p>
-    <p th:text="'Автор книги : ' + ${book.getAuthorName()}">author Book</p>
-    <p th:text="'Рік написання книги : ' + ${book.getYear()}">year book</p>
-    <p style="color: red" th:if="${book.getOwner()}">Ця книга зайнята</p>
-    <p style="color: green" th:unless="${book.getOwner()}">Ця книга вільна</p>
-  </div>
+    <form th:action="@{/user/books}">
+
+        <label class="sort_heading" for="select_sort_method">Сортування книг</label>
+        <select name="sort" id="select_sort_method">
+            <option value="name" selected>Назва</option>
+            <option value="year">Рік</option>
+        </select>
+
+        <label class="sort_heading" for="select_sort_order">Порядок сортування книг</label>
+        <select name="order" id="select_sort_order">
+            <option value="desc" selected>Спадаючий</option>
+            <option value="asc">Зростаючий</option>
+        </select>
+
+        <button type="submit">Застосувати</button>
+    </form>
+
+
+    <h1 style="text-align: center" th:if="${search}">Знайдені книги</h1>
+    <br>
+    <h3 style="text-align: center" th:if="${#lists.isEmpty(books)}">Жодної книги не було знайдено</h3>
+
+    <div class="wrapper">
+        <div class="book_div" th:each="book : ${books}">
+            <p th:text="'Назва книги : ' + ${book.getName()}">author Book</p>
+            <p th:text="'Автор книги : ' + ${book.getAuthorName()}">author Book</p>
+            <p th:text="'Рік написання книги : ' + ${book.getYear()}">year book</p>
+            <p style="color: red" th:if="${book.getOwner()}">Ця книга зайнята</p>
+            <p style="color: green" th:unless="${book.getOwner()}">Ця книга вільна</p>
+        </div>
+    </div>
+
+    <div class="container" style="width: auto ">
+        <div class="row" style="width: auto">
+            <div class="d-flex justify-content-center">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item"><a class="page-link" href="/user/books">Всі книги на сторінці</a></li>
+                        <li class="page-item"><a class="page-link" href="/user/books?page=0&items_per_page=6">1</a></li>
+                        <li class="page-item"><a class="page-link" href="/user/books?page=1&items_per_page=6">2</a></li>
+                        <li class="page-item"><a class="page-link" href="/user/books?page=2&items_per_page=6">3</a></li>
+                    </ul>
+                </nav>
+
+            </div>
+        </div>
+    </div>
 </main>
 
-<div class="container" style="width: auto ">
-  <div class="row" style="width: auto">
-    <div class="d-flex justify-content-center">
-      <nav aria-label="Page navigation example">
-        <ul class="pagination">
-          <li class="page-item"><a class="page-link" href="/user/books">Всі книги на сторінці</a></li>
-          <li class="page-item"><a class="page-link" href="/user/books?page=0&items_per_page=6">1</a></li>
-          <li class="page-item"><a class="page-link" href="/user/books?page=1&items_per_page=6">2</a></li>
-          <li class="page-item"><a class="page-link" href="/user/books?page=2&items_per_page=6">3</a></li>
-        </ul>
-      </nav>
+<div th:insert="template/footer :: footer"></div>
 
-    </div>
-  </div>
-</div>
 </body>
 </html>

@@ -7,7 +7,13 @@
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <style>
         body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
             font-size: 30px;
+        }
+        main {
+            flex: 1 1 auto;
         }
     </style>
 </head>
@@ -15,28 +21,35 @@
 
 <header th:insert="template/header_librarian :: header"></header>
 
-<div class="d-flex justify-content-center" style="margin-top: 50px">
-    <form th:method="PATCH" th:action="@{/librarian/{id}(id = ${book.getId()})}" th:object="${book}">
-        <div class="form-group">
-            <label for="nameBook">Назва книги</label>
-            <input type="text" class="form-control" id="nameBook" th:field="*{name}" placeholder="Ведіть назву книги">
-            <div style="color: red" th:errors="*{name}">Name Error</div>
-        </div>
-        <div class="form-group">
-            <label for="authorBook">Автор книги</label>
-            <input type="text" class="form-control" id="authorBook" th:field="*{authorName}"
-                   placeholder="Ведіть автора книги">
-            <div style="color: red" th:errors="*{authorName}">Name Error</div>
-        </div>
-        <div class="form-group">
-            <label for="yearBook">Рік написанння книги</label>
-            <input type="text" class="form-control" id="yearBook" th:field="*{year}"
-                   placeholder="Ведіть рік написання книги">
-            <div style="color: red" th:errors="*{year}">Name Error</div>
-        </div>
-        <br>
-        <button type="submit" class="btn btn-primary">Змінити дані книги</button>
-    </form>
-</div>
+<main>
+    <div class="d-flex justify-content-center" style="margin-top: 50px">
+        <form th:method="PATCH" th:action="@{/librarian/{id}(id = ${book.getId()})}" th:object="${book}">
+            <div class="form-group">
+                <label for="nameBook">Назва книги</label>
+                <input type="text" class="form-control" id="nameBook" th:field="*{name}"
+                       placeholder="Ведіть назву книги">
+                <div style="color: red" th:errors="*{name}">Name Error</div>
+            </div>
+            <div class="form-group">
+                <label for="authorBook">Автор книги</label>
+                <input type="text" class="form-control" id="authorBook" th:field="*{authorName}"
+                       placeholder="Ведіть автора книги">
+                <div style="color: red" th:errors="*{authorName}">Name Error</div>
+            </div>
+            <div class="form-group">
+                <label for="yearBook">Рік написанння книги</label>
+                <input type="text" class="form-control" id="yearBook" th:field="*{year}"
+                       placeholder="Ведіть рік написання книги">
+                <div style="color: red" th:errors="*{year}">Name Error</div>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Змінити дані книги</button>
+        </form>
+    </div>
+</main>
+
+
+<div th:insert="template/footer :: footer"></div>
+
 </body>
 </html>

@@ -17,7 +17,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //настраиваем сам spring security, то какую форму использовать
     //какая страничка за вход, какая за выход, конфигурируем авторизацию
     protected void configure(HttpSecurity http) throws Exception {
-        //атворизация
+        //авторизация
         http.authorizeRequests()
                 //не надо писать полное название роли, та как Spring Security все понимает и без нас. Он сам добавляет ROLE_ + наша роль ADMIN/USER
                 //.antMatchers("/admin").hasRole("ADMIN")

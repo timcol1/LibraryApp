@@ -9,7 +9,13 @@
         body {
             text-align: center;
             font-size: 30px;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
 
+        main {
+            flex: 1 1 auto;
         }
     </style>
 </head>
@@ -17,21 +23,26 @@
 
 <header th:insert="template/header_librarian :: header"></header>
 
-<p th:text="'Повне ім\'я людини : ' + ${person.getName()}"></p>
-<p id="date" th:text="'Дата народження людини : ' + ${person.getYear()}">date Book</p>
-<p th:text="'Логін людини в бібліотеці : ' + ${person.getUsername()}">date Book</p>
-<a th:href="@{/people/{id}/edit(id = ${person.getId()})}">Змінити дані людини</a>
-<form th:method="DELETE" th:action="@{/people/{id}(id = ${person.getId()})}">
-    <input class="btn btn-primary" type="submit" value="Видалити цю людину"/>
-</form>
-<p th:text="'Ця людина ще не взяла жодної книги'" th:if="${#lists.isEmpty(books)}">books</p>
-<div th:if="${!#lists.isEmpty(books)}">
-    <h2>Книги які взяв це користувач</h2>
-    <div th:each="book : ${books}">
-        <a th:href="@{/librarian/{id}(id = ${book.getId()})}" th:text="${book.getName()}"></a>
-        <span th:text="', ' + ${book.getAuthorName()}"></span>
-        <span th:if = "${book.isOverdue()}" th:style="${book.isOverdue() ? 'color : red;' : ''}"> - ця книга вже просрочена</span>
+<main>
+    <p th:text="'Повне ім\'я людини : ' + ${person.getName()}"></p>
+    <p id="date" th:text="'Дата народження людини : ' + ${person.getYear()}">date Book</p>
+    <p th:text="'Логін людини в бібліотеці : ' + ${person.getUsername()}">date Book</p>
+    <a th:href="@{/people/{id}/edit(id = ${person.getId()})}">Змінити дані людини</a>
+    <form th:method="DELETE" th:action="@{/people/{id}(id = ${person.getId()})}">
+        <input class="btn btn-primary" type="submit" value="Видалити цю людину"/>
+    </form>
+    <p th:text="'Ця людина ще не взяла жодної книги'" th:if="${#lists.isEmpty(books)}">books</p>
+    <div th:if="${!#lists.isEmpty(books)}">
+        <h2>Книги які взяв це користувач</h2>
+        <div th:each="book : ${books}">
+            <a th:href="@{/librarian/{id}(id = ${book.getId()})}" th:text="${book.getName()}"></a>
+            <span th:text="', ' + ${book.getAuthorName()}"></span>
+            <span th:if="${book.isOverdue()}" th:style="${book.isOverdue() ? 'color : red;' : ''}"> - ця книга вже просрочена</span>
+        </div>
     </div>
-</div>
+</main>
+
+<div th:insert="template/footer :: footer"></div>
+
 </body>
 </html>

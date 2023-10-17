@@ -7,7 +7,14 @@
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <style>
         body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
             font-size: 30px;
+        }
+
+        main {
+            flex: 1 1 auto;
         }
     </style>
 </head>
@@ -15,38 +22,44 @@
 
 <header th:insert="template/header_librarian :: header"></header>
 
-<div class="d-flex justify-content-center" style="margin-top: 50px">
-    <form th:method="POST" th:action="@{/people}" th:object="${person}">
-        <div class="form-group">
-            <label for="exampleInputEmail1">Логін</label>
-            <input th:field = "*{username}" type="text" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                   placeholder="Ведіть логін">
-            <div th:errors="*{username}" style="color:red">Error</div>
+<main>
+    <div class="d-flex justify-content-center" style="margin-top: 50px">
+        <form th:method="POST" th:action="@{/people}" th:object="${person}">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Логін</label>
+                <input th:field="*{username}" type="text" name="username" class="form-control" id="exampleInputEmail1"
+                       aria-describedby="emailHelp"
+                       placeholder="Ведіть логін">
+                <div th:errors="*{username}" style="color:red">Error</div>
+                <br>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Пароль</label>
+                <input th:field="*{password}" type="password" name="password" class="form-control"
+                       id="exampleInputPassword1"
+                       placeholder="Ведіть пароль">
+                <div th:errors="*{password}" style="color:red">Error</div>
+            </div>
             <br>
-        </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">Пароль</label>
-            <input th:field = "*{password}" type="password" name="password" class="form-control" id="exampleInputPassword1"
-                   placeholder="Ведіть пароль">
-            <div th:errors="*{password}" style="color:red">Error</div>
-        </div>
-        <br>
-        <div class="form-group">
-            <label for="namePerson">Введіть прізвище та ім'я людини</label>
-            <input type="text" class="form-control" id="namePerson" th:field="*{name}"
-                   placeholder="Ведіть людини книги">
-            <div style="color: red" th:errors="*{name}">Name Error</div>
-        </div>
-        <br>
-        <div class="form-group">
-            <label for="dateBirthPerson">Введіть дату народження людини в форматі дд-мм-рррр</label>
-            <input type="text" class="form-control" id="dateBirthPerson" th:field="*{year}"
-                   placeholder="Дата народження людини">
-            <div style="color: red" th:errors="*{year}">Name Error</div>
-        </div>
-        <br>
-        <button type="submit" class="btn btn-primary">Створити людинну</button>
-    </form>
-</div>
+            <div class="form-group">
+                <label for="namePerson">Введіть прізвище та ім'я людини</label>
+                <input type="text" class="form-control" id="namePerson" th:field="*{name}"
+                       placeholder="Ведіть людини книги">
+                <div style="color: red" th:errors="*{name}">Name Error</div>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="dateBirthPerson">Введіть дату народження людини в форматі дд-мм-рррр</label>
+                <input type="text" class="form-control" id="dateBirthPerson" th:field="*{year}"
+                       placeholder="Дата народження людини">
+                <div style="color: red" th:errors="*{year}">Name Error</div>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Створити людинну</button>
+        </form>
+    </div>
+</main>
+<div th:insert="template/footer :: footer"></div>
+
 </body>
 </html>

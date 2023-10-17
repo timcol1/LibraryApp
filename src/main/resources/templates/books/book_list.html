@@ -8,9 +8,16 @@
     <style>
         body {
             font-size: 30px;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
         }
 
         main {
+            flex: 1 1 auto;
+        }
+
+        .wrapper {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
         }
@@ -33,68 +40,62 @@
 <body>
 <header th:insert="template/header_librarian :: header"></header>
 
-<form th:action="@{/librarian}">
-    <label class="sort_heading" for="select_sort_method">Сортування книг</label>
-    <select name="sort" id="select_sort_method">
-        <!--Supplement an id here instead of using 'name'-->
-        <option value="name" selected>Назва</option>
-        <option value="year">Рік</option>
-    </select>
-
-    <label class="sort_heading" for="select_sort_order">Порядок сортування книг</label>
-    <select name="order" id="select_sort_order">
-        <!--Supplement an id here instead of using 'name'-->
-        <option value="desc" selected>Спадаючий</option>
-        <option value="asc">Зростаючий</option>
-    </select>
-
-    <button type="submit">Застосувати</button>
-</form>
-
-<div class="container" style="width: auto ">
-    <div class="row" style="width: auto">
-        <div class="d-flex justify-content-center">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="/librarian">Всі книги на сторінці</a></li>
-                    <li class="page-item"><a class="page-link" href="/librarian?page=0&items_per_page=6">1</a></li>
-                    <li class="page-item"><a class="page-link" href="/librarian?page=1&items_per_page=6">2</a></li>
-                    <li class="page-item"><a class="page-link" href="/librarian?page=2&items_per_page=6">3</a></li>
-                </ul>
-            </nav>
-
-        </div>
-    </div>
-</div>
-<div class="d-flex justify-content-center">
-    <a class="btn btn-primary" href="/librarian/new" role="button">Додати книгу до бібліотеки</a>
-</div>
-<h1 style="text-align: center" th:if="${search}">Знайдені книги</h1>
-<br>
-<h3 style="text-align: center" th:if="${#lists.isEmpty(books)}">Жодної книги не було знайдено</h3>
 
 <main>
-    <div class="book_div" th:each="book : ${books}">
-        <span>Назва книги : </span>
-        <a th:href="@{/librarian/{id}(id = ${book.getId()})}" th:text="${book.getName()}"></a>
-        <p th:text="'Автор книги : ' + ${book.getAuthorName()}">author Book</p>
-        <p th:text="'Рік написання книги : ' + ${book.getYear()}">year book</p>
-        <p style="color: red" th:if="${book.getOwner()}">Ця книга зайнята</p>
-        <p style="color: green" th:unless="${book.getOwner()}">Ця книга вільна</p>
+    <form th:action="@{/librarian}">
+        <label class="sort_heading" for="select_sort_method">Сортування книг</label>
+        <select name="sort" id="select_sort_method">
+            <!--Supplement an id here instead of using 'name'-->
+            <option value="name" selected>Назва</option>
+            <option value="year">Рік</option>
+        </select>
+
+        <label class="sort_heading" for="select_sort_order">Порядок сортування книг</label>
+        <select name="order" id="select_sort_order">
+            <!--Supplement an id here instead of using 'name'-->
+            <option value="desc" selected>Спадаючий</option>
+            <option value="asc">Зростаючий</option>
+        </select>
+
+        <button type="submit">Застосувати</button>
+    </form>
+
+    <div class="container" style="width: auto ">
+        <div class="row" style="width: auto">
+            <div class="d-flex justify-content-center">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item"><a class="page-link" href="/librarian">Всі книги на сторінці</a></li>
+                        <li class="page-item"><a class="page-link" href="/librarian?page=0&items_per_page=6">1</a></li>
+                        <li class="page-item"><a class="page-link" href="/librarian?page=1&items_per_page=6">2</a></li>
+                        <li class="page-item"><a class="page-link" href="/librarian?page=2&items_per_page=6">3</a></li>
+                    </ul>
+                </nav>
+
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <a class="btn btn-primary" href="/librarian/new" role="button">Додати книгу до бібліотеки</a>
+    </div>
+    <h1 style="text-align: center" th:if="${search}">Знайдені книги</h1>
+    <br>
+    <h3 style="text-align: center" th:if="${#lists.isEmpty(books)}">Жодної книги не було знайдено</h3>
+
+    <div class="wrapper">
+        <div class="book_div" th:each="book : ${books}">
+            <span>Назва книги : </span>
+            <a th:href="@{/librarian/{id}(id = ${book.getId()})}" th:text="${book.getName()}"></a>
+            <p th:text="'Автор книги : ' + ${book.getAuthorName()}">author Book</p>
+            <p th:text="'Рік написання книги : ' + ${book.getYear()}">year book</p>
+            <p style="color: red" th:if="${book.getOwner()}">Ця книга зайнята</p>
+            <p style="color: green" th:unless="${book.getOwner()}">Ця книга вільна</p>
+        </div>
     </div>
 </main>
-<div class="container">
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-        <p class="col-md-4 mb-0 text-body-secondary">© 2023 Avlyakulov Timur</p>
 
-        <ul class="nav col-md-4 justify-content-end">
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
-        </ul>
-    </footer>
-</div>
+<div th:insert="template/footer :: footer"></div>
+
+
 </body>
 </html>

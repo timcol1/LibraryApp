@@ -7,9 +7,14 @@
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <style>
         body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
             font-size: 30px;
         }
-
+        main {
+            flex: 1 1 auto;
+        }
         main a {
             font-size: 30px;
         }
@@ -20,16 +25,21 @@
 <header th:insert="template/header_librarian :: header"></header>
 
 
+<main>
 <h1 style="text-align: center" th:if="${search}">Знайдені люди</h1>
 <br>
 <h3 style="text-align: center" th:if="${#lists.isEmpty(people)}">Жодної людини не було знайдено</h3>
-<main>
     <h1>Читачі даної бібліотеки</h1>
     <div th:each="person : ${people}">
         <a th:href="@{/people/{id}(id = ${person.getId()})}" th:text="${person.getName()} + ', ' + ${person.getYear()}"></a>
     </div>
-</main>
+
 <br>
 <a href="/people/new" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Додати нову людину до бібліотеки</a>
+</main>
+
+
+<div th:insert="template/footer :: footer"></div>
+
 </body>
 </html>

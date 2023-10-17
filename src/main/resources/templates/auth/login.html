@@ -7,30 +7,32 @@
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 <body>
-<h1 style="text-align: center">Бібліотека</h1>
-<div class="d-flex justify-content-center" style="margin-top: 50px">
-    <form name="f" method="post" action="/process_login">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+<div style="margin-top: 14%">
+    <h1 style="text-align: center">Бібліотека</h1>
+    <div class="d-flex justify-content-center">
+        <form name="f" method="post" action="/process_login">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
-        <div class="form-group">
-            <label for="username">Логін</label>
-            <input type="text" name="username" class="form-control" id="username" aria-describedby="emailHelp"
-                   placeholder="Ведіть логін">
-            <br>
-        </div>
+            <div class="form-group">
+                <label for="username">Логін</label>
+                <input type="text" name="username" class="form-control" id="username" aria-describedby="emailHelp"
+                       placeholder="Ведіть логін">
+                <br>
+            </div>
 
-        <div class="form-group">
-            <label for="exampleInputPassword1">Пароль</label>
-            <input type="password" name="password" class="form-control" id="exampleInputPassword1"
-                   placeholder="Ведіть пароль">
-        </div>
-        <div th:if="${param.error}" style="color: red">Неправильне ім'я або пароль</div>
-        <span>Нема акаунту?</span>
-        <a href="/auth/registration">Зареєструвати новий акаунт</a>
-
-        <br>
-        <button type="submit" class="btn btn-primary">Залогінитись</button>
-    </form>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Пароль</label>
+                <input type="password" name="password" class="form-control" id="exampleInputPassword1"
+                       placeholder="Ведіть пароль">
+            </div>
+            <div th:if="${param.error}" style="color: red">Неправильне ім'я або пароль</div>
+            <span>Нема акаунту?</span>
+            <a href="/auth/registration">Зареєструвати новий акаунт</a>
+            <div style="margin: 20px" class="text-center">
+                <button style="width: 100%" type="submit" class="btn btn-lg btn-primary btn-block">Залогінитись</button>
+            </div>
+        </form>
+    </div>
 </div>
 </body>
 </html>

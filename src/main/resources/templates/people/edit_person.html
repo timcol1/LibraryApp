@@ -7,7 +7,14 @@
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <style>
         body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
             font-size: 30px;
+        }
+
+        main {
+            flex: 1 1 auto;
         }
     </style>
 </head>
@@ -15,18 +22,23 @@
 
 <header th:insert="template/header_librarian :: header"></header>
 
-<div class="d-flex justify-content-center" style="margin-top: 50px">
-    <form th:method="PATCH" th:action="@{/people/{id}(id = ${person.getId()})}" th:object="${person}">
-        <label for="name">Ведіть прізвище та ім'я людини</label>
-        <input id="name" th:field="*{name}" type="text"/>
-        <div style="color: red" th:errors="*{name}">Name Error</div>
-        <br>
-        <label for="date">Введіть дату народження людини в форматі дд-мм-рррр</label>
-        <input id="date" th:field="*{year}" type="text"/>
-        <div style="color: red" th:errors="*{year}">Name Error</div>
-        <br>
-        <input type="submit" value="Змінити людину">
-    </form>
-</div>
+<main>
+    <div class="d-flex justify-content-center" style="margin-top: 50px">
+        <form th:method="PATCH" th:action="@{/people/{id}(id = ${person.getId()})}" th:object="${person}">
+            <label for="name">Ведіть прізвище та ім'я людини</label>
+            <input id="name" th:field="*{name}" type="text"/>
+            <div style="color: red" th:errors="*{name}">Name Error</div>
+            <br>
+            <label for="date">Введіть дату народження людини в форматі дд-мм-рррр</label>
+            <input id="date" th:field="*{year}" type="text"/>
+            <div style="color: red" th:errors="*{year}">Name Error</div>
+            <br>
+            <input type="submit" value="Змінити людину">
+        </form>
+    </div>
+</main>
+
+<div th:insert="template/footer :: footer"></div>
+
 </body>
 </html>
