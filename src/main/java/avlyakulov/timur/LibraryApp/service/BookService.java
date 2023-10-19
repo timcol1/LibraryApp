@@ -10,10 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -56,8 +53,10 @@ public class BookService {
 
     @Transactional
     public void editBook(int id, Book updatedBook) {
-        updatedBook.setId(id);
-        bookRepository.save(updatedBook);
+        Book book = getBook(id);
+        book.setName(updatedBook.getName());
+        book.setAuthorName(updatedBook.getAuthorName());
+        book.setYear(updatedBook.getYear());
     }
 
     @Transactional
@@ -119,20 +118,20 @@ public class BookService {
     }
 
     public List<Book> getOverdueBooks() {
-        List<Book> books = getListBooks();
-        books = books.stream().filter(b -> b.getOwner() != null).collect(Collectors.toList());
-        setOverdueForBooks(books);
-        books = filterOverdueBooks(books);
+        List<Book> books = bookRepository.getOverdueBooksBy30Days(getDateForOverdueBooks());
         books.forEach(this::setSimpleFormatForBookDate);
         return books;
     }
 
-    public void setOverdueForBooks(List<Book> books) {
-        books.forEach(b -> b.setOverdue(TimeUnit.MILLISECONDS.toDays(new Date().getTime() - b.getGivenAt().getTime()) >= 30));
-    }
-
-    public List<Book> filterOverdueBooks(List<Book> books) {
-        return books.stream().filter(Book::isOverdue).collect(Collectors.toList());
+    public Date getDateForOverdueBooks() {
+        Date currentDate = new Date();
+        // Создаем объект Calendar и устанавливаем его в текущую дату
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(currentDate);
+        // Вычитаем 30 дней
+        calendar.add(Calendar.DAY_OF_MONTH, -30);
+        // Получаем новую дату после вычитания 30 дней
+        return calendar.getTime();
     }
 
     public void setSimpleFormatForBookDate(Book book) {

@@ -83,7 +83,6 @@ public class BookController {
 
     @PatchMapping("/{id}")
     public String editBook(@PathVariable int id, @ModelAttribute("book") Book book, BindingResult bindingResult) {
-        bookValidator.validate(book, bindingResult);
         if (bindingResult.hasErrors()) {
             return "/books/edit_book";
         }

@@ -41,7 +41,7 @@ public class PersonRegisteredController {
         } else {
             model.addAttribute("books", bookService.getListBooks());
         }
-        return "user/list_books";
+        return "user/list_books_user";
     }
 
     @GetMapping("/taken_books")

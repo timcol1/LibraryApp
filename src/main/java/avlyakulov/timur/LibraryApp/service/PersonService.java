@@ -47,8 +47,10 @@ public class PersonService {
 
     @Transactional
     public void updatePerson(int id, Person updatedPerson) {
-        updatedPerson.setId(id);
-        personRepository.save(updatedPerson);
+        Person personFromDb = findById(id);
+        personFromDb.setName(updatedPerson.getName());
+        personFromDb.setYear(updatedPerson.getYear());
+        personFromDb.setPhoneNumber(updatedPerson.getPhoneNumber());
     }
 
     @Transactional
@@ -59,7 +61,6 @@ public class PersonService {
     public List<Book> getBooksByPersonId(int id) {
         Optional<Person> foundPerson = personRepository.findById(id);
         if (foundPerson.isPresent()) {
-            //Hibernate.initialize((foundPerson.get().getBookList()));
             List<Book> books = foundPerson.get().getBookList();
             setOverdueForBooks(books);
             return books;

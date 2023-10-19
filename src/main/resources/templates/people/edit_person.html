@@ -29,9 +29,13 @@
             <input id="name" th:field="*{name}" type="text"/>
             <div style="color: red" th:errors="*{name}">Name Error</div>
             <br>
-            <label for="date">Введіть дату народження людини в форматі дд-мм-рррр</label>
+            <label for="date">Ведіть рік народження людини</label>
             <input id="date" th:field="*{year}" type="text"/>
             <div style="color: red" th:errors="*{year}">Name Error</div>
+            <br>
+            <label for="phoneNumber">Введіть номер телефону людини починаючи з +380</label>
+            <input type="text" class="form-control" id="phoneNumber" th:field="*{phoneNumber}">
+            <div style="color: red" th:errors="*{phoneNumber}">Name Error</div>
             <br>
             <input type="submit" value="Змінити людину">
         </form>

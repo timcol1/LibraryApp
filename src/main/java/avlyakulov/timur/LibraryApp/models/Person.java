@@ -3,6 +3,7 @@ package avlyakulov.timur.LibraryApp.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -26,6 +27,9 @@ public class Person {
     private String password;
 
     private String role;
+
+    @Pattern(regexp = "\\+380[0-9]{9}", message = "Ваш номер має бути українським та починатись на +380")
+    private String phoneNumber;
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
     private List<Book> bookList;
@@ -80,6 +84,14 @@ public class Person {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public List<Book> getBookList() {

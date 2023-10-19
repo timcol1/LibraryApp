@@ -32,10 +32,17 @@
         </div>
         <br>
         <div class="form-group">
-            <label for="dateBirthPerson">Введіть дату народження людини в форматі дд-мм-рррр</label>
+            <label for="dateBirthPerson">Ведіть рік народження людини</label>
             <input type="text" class="form-control" id="dateBirthPerson" th:field="*{year}"
                    placeholder="Дата народження людини">
             <div style="color: red" th:errors="*{year}">Name Error</div>
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="phoneNumber">Введіть номер телефону людини починаючи з +380</label>
+            <input type="text" class="form-control" id="phoneNumber" th:field="*{phoneNumber}"
+                   placeholder="Номер телефону людини">
+            <div style="color: red" th:errors="*{phoneNumber}">Name Error</div>
         </div>
         <a href="/auth/login">Повернутись до логіну</a>
         <br>
