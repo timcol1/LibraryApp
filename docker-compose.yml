@@ -1,0 +1,29 @@
+#Это утилита, которая является частью докера. Которая позволяет управлять контейнерами.
+#Тут описываются правила взаимодействия контейнеров, как они должны подниматься, какие переменные окружения
+
+#Используем 3 версию спецификации докера
+#Используем образ созданный нами и готовый образ.
+
+
+version: '3'
+
+services:
+  postgres:
+    image: 'postgres:15'
+    container_name: 'java-postgres'
+    environment:
+      -  POSTGRES_DB=library_app_db
+      -  POSTGRES-USER=postgres
+      -  POSTGRES_PASSWORD=1504
+
+
+  app:
+    build: ./
+    container_name: 'java-app'
+    #прокидываем из локальной сети компьютера до порта 8080 в контейнере
+    ports:
+    - 8080:8080
+    links:
+      - 'postgres:localhost'
+
+
