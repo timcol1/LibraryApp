@@ -10,11 +10,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -40,9 +41,7 @@ public class BookService {
         if (optionalBook.isPresent()) {
             Book book = optionalBook.get();
             if (book.getGivenAt() != null) {
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-                String formatDate = simpleDateFormat.format(book.getGivenAt());
-                book.setSimpleDateFormat(formatDate);
+                setSimpleFormatForBookDate(book);
             }
             return book;
         } else {
@@ -117,5 +116,28 @@ public class BookService {
             name = new String(chars);
             return bookRepository.findAllByNameStartingWith(name);
         }
+    }
+
+    public List<Book> getOverdueBooks() {
+        List<Book> books = getListBooks();
+        books = books.stream().filter(b -> b.getOwner() != null).collect(Collectors.toList());
+        setOverdueForBooks(books);
+        books = filterOverdueBooks(books);
+        books.forEach(this::setSimpleFormatForBookDate);
+        return books;
+    }
+
+    public void setOverdueForBooks(List<Book> books) {
+        books.forEach(b -> b.setOverdue(TimeUnit.MILLISECONDS.toDays(new Date().getTime() - b.getGivenAt().getTime()) >= 30));
+    }
+
+    public List<Book> filterOverdueBooks(List<Book> books) {
+        return books.stream().filter(Book::isOverdue).collect(Collectors.toList());
+    }
+
+    public void setSimpleFormatForBookDate(Book book) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String formatDate = simpleDateFormat.format(book.getGivenAt());
+        book.setSimpleDateFormat(formatDate);
     }
 }

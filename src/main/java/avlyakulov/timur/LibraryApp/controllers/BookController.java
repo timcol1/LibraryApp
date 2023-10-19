@@ -108,4 +108,10 @@ public class BookController {
         bookService.releaseBookFromPerson(id);
         return "redirect:/librarian";
     }
+
+    @GetMapping("/overdue")
+    public String getOverdueBooks(Model model) {
+        model.addAttribute("books", bookService.getOverdueBooks());
+        return "books/overdue";
+    }
 }

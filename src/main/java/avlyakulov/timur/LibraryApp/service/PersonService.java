@@ -3,7 +3,6 @@ package avlyakulov.timur.LibraryApp.service;
 import avlyakulov.timur.LibraryApp.models.Book;
 import avlyakulov.timur.LibraryApp.models.Person;
 import avlyakulov.timur.LibraryApp.repository.PersonRepository;
-import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -62,7 +61,7 @@ public class PersonService {
         if (foundPerson.isPresent()) {
             //Hibernate.initialize((foundPerson.get().getBookList()));
             List<Book> books = foundPerson.get().getBookList();
-            books.forEach(b -> b.setOverdue(TimeUnit.MILLISECONDS.toDays(new Date().getTime() - b.getGivenAt().getTime()) >= 30));
+            setOverdueForBooks(books);
             return books;
         } else {
             return Collections.emptyList();
@@ -82,5 +81,9 @@ public class PersonService {
 
     public Optional<Person> findPersonByUsername(String username) {
         return personRepository.findByUsername(username);
+    }
+
+    public void setOverdueForBooks(List<Book> books) {
+        books.forEach(b -> b.setOverdue(TimeUnit.MILLISECONDS.toDays(new Date().getTime() - b.getGivenAt().getTime()) >= 30));
     }
 }

@@ -34,6 +34,7 @@ public class PeopleController {
         } else {
             model.addAttribute("people", personService.getPeople());
         }
+        int a = 123;
         return "people/people_list";
     }
 
