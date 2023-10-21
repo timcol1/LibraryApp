@@ -50,6 +50,11 @@
             <p th:text="'Назва книги : ' + ${book.getName()}">author Book</p>
             <p th:text="'Автор книги : ' + ${book.getAuthorName()}">author Book</p>
             <p th:text="'Рік написання книги : ' + ${book.getYear()}">year book</p>
+            <p th:text="'Книга була взята вами : ' + ${book.getSimpleDateFormat()}">year book</p>
+
+            <div th:if = "${book.isOverdue()}">
+                <h3 style = "color: red">Ця книга вже просрочена</h3>
+            </div>
         </div>
     </div>
 </main>

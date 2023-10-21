@@ -3,6 +3,7 @@ package avlyakulov.timur.LibraryApp.controllers;
 
 import avlyakulov.timur.LibraryApp.models.Person;
 import avlyakulov.timur.LibraryApp.service.PersonService;
+import avlyakulov.timur.LibraryApp.util.PersonValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -16,12 +17,14 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/people")
 public class PeopleController {
+    private final PersonValidator personValidator;
     private final PersonService personService;
     private final PasswordEncoder passwordEncoder;
 
 
     @Autowired
-    public PeopleController(PersonService personService, PasswordEncoder passwordEncoder) {
+    public PeopleController(PersonValidator personValidator, PersonService personService, PasswordEncoder passwordEncoder) {
+        this.personValidator = personValidator;
         this.personService = personService;
         this.passwordEncoder = passwordEncoder;
     }
@@ -56,7 +59,12 @@ public class PeopleController {
     }
 
     @PostMapping()
-    public String createPerson(@ModelAttribute Person person) {
+    public String createPerson(@ModelAttribute @Valid Person person,
+                               BindingResult bindingResult) {
+        personValidator.validate(person, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "people/add_person";
+        }
         person.setPassword(passwordEncoder.encode(person.getPassword()));
         person.setRole("ROLE_USER");
         personService.createPerson(person);

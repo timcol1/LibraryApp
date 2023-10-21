@@ -2,9 +2,8 @@ package avlyakulov.timur.LibraryApp.models;
 
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -18,9 +17,11 @@ public class Person {
     @NotEmpty(message = "Ім'я не може бути пустим")
     private String name;
 
+    @Min(value = 1900, message = "Ви маєте бути старшим ніж 1900 рік")
+    @Max(value = 2023, message = "Ваша дата народження має бути не більша ніж поточний рік, а саме 2023 рік")
     private int year;
 
-    @Size(min = 2, max = 10, message = "Ваш нікнейм повинен бути від 2 до 10 символів")
+    @Size(min = 2, max = 20, message = "Ваш нікнейм повинен бути від 2 до 20 символів")
     private String username;
 
     @Size(min = 6, message = "Ваш пароль повинен бути від 6 символів")

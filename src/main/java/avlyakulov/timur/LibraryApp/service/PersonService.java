@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -63,6 +64,7 @@ public class PersonService {
         if (foundPerson.isPresent()) {
             List<Book> books = foundPerson.get().getBookList();
             setOverdueForBooks(books);
+            books.forEach(this::setSimpleFormatForBookDate);
             return books;
         } else {
             return Collections.emptyList();
@@ -70,7 +72,7 @@ public class PersonService {
     }
 
     public List<Person> findPeopleByNameStartingWith(String name) {
-        if (name.equals(""))
+        if (name.isEmpty())
             return Collections.emptyList();
         else {
             char[] chars = name.toCharArray();
@@ -86,5 +88,11 @@ public class PersonService {
 
     public void setOverdueForBooks(List<Book> books) {
         books.forEach(b -> b.setOverdue(TimeUnit.MILLISECONDS.toDays(new Date().getTime() - b.getGivenAt().getTime()) >= 30));
+    }
+
+    public void setSimpleFormatForBookDate(Book book) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        String formatDate = simpleDateFormat.format(book.getGivenAt());
+        book.setSimpleDateFormat(formatDate);
     }
 }

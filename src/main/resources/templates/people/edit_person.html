@@ -26,18 +26,18 @@
     <div class="d-flex justify-content-center" style="margin-top: 50px">
         <form th:method="PATCH" th:action="@{/people/{id}(id = ${person.getId()})}" th:object="${person}">
             <label for="name">Ведіть прізвище та ім'я людини</label>
-            <input id="name" th:field="*{name}" type="text"/>
+            <input class="form-control" id="name" th:field="*{name}" type="text"/>
             <div style="color: red" th:errors="*{name}">Name Error</div>
             <br>
             <label for="date">Ведіть рік народження людини</label>
-            <input id="date" th:field="*{year}" type="text"/>
+            <input class="form-control" id="date" th:field="*{year}" type="text"/>
             <div style="color: red" th:errors="*{year}">Name Error</div>
             <br>
             <label for="phoneNumber">Введіть номер телефону людини починаючи з +380</label>
             <input type="text" class="form-control" id="phoneNumber" th:field="*{phoneNumber}">
             <div style="color: red" th:errors="*{phoneNumber}">Name Error</div>
             <br>
-            <input type="submit" value="Змінити людину">
+            <input class="btn btn-primary" type="submit" value="Змінити людину">
         </form>
     </div>
 </main>
