@@ -33,6 +33,8 @@ public class PersonRegisteredController {
                                @RequestParam(value = "search", required = false) Optional<String> searchQuery) {
         if (page.isPresent() && itemsPerPage.isPresent()) {
             model.addAttribute("books", bookService.getPageableBooks(page.get(), itemsPerPage.get()));
+            model.addAttribute("totalPages", bookService.getNumberPages(page.get(), itemsPerPage.get()));
+            model.addAttribute("currentPage", page.get());
         } else if (sortBy.isPresent() && orderSort.isPresent()) {
             model.addAttribute("books", bookService.getBooksSortByParameter(sortBy.get(), orderSort.get()));
         } else if (searchQuery.isPresent()) {
@@ -40,6 +42,8 @@ public class PersonRegisteredController {
             model.addAttribute("search", true);
         } else {
             model.addAttribute("books", bookService.getListBooks());
+            model.addAttribute("totalPages", bookService.getNumberPages(0, 6));
+            model.addAttribute("all", true);
         }
         return "user/list_books_user";
     }

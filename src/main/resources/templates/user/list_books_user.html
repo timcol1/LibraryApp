@@ -76,18 +76,20 @@
 
 </main>
 
-<div class="container" style="width: auto ">
+<div class="container" style="width: auto">
     <div class="row" style="width: auto">
         <div class="d-flex justify-content-center">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="/user/books">Всі книги на сторінці</a></li>
-                    <li class="page-item"><a class="page-link" href="/user/books?page=0&items_per_page=6">1</a></li>
-                    <li class="page-item"><a class="page-link" href="/user/books?page=1&items_per_page=6">2</a></li>
-                    <li class="page-item"><a class="page-link" href="/user/books?page=2&items_per_page=6">3</a></li>
+                    <li class="page-item"><a th:class="'page-link ' + ${all == true ? 'active' : ' '}"
+                                             href="/user/books">Всі книги на сторінці</a></li>
+                    <li class="page-item" th:each="pageNumber : ${totalPages}"><a
+                            th:class="'page-link ' + ${pageNumber == currentPage ? 'active' : ' '}"
+                            th:href="@{'/user/books?page=' + ${pageNumber} + '&items_per_page=6'}"
+                            th:text = "${pageNumber + 1}"></a></li>
+
                 </ul>
             </nav>
-
         </div>
     </div>
 </div>

@@ -36,14 +36,6 @@
             font-weight: bold;
         }
 
-        .scrollable-div {
-            width: auto; /* Ширина вашего scrollable div */
-            height: 63%; /* Высота вашего scrollable div */
-            overflow: auto;
-            border: 1px solid #ccc; /* Добавьте рамку по желанию */
-
-        }
-
     </style>
 </head>
 <body>
@@ -78,16 +70,14 @@
     <br>
     <h3 style="text-align: center" th:if="${#lists.isEmpty(books)}">Жодної книги не було знайдено</h3>
 
-    <div class="scrollable-div">
-        <div class="wrapper">
-            <div class="book_div" th:each="book : ${books}">
-                <span>Назва книги : </span>
-                <a th:href="@{/librarian/{id}(id = ${book.getId()})}" th:text="${book.getName()}"></a>
-                <p th:text="'Автор книги : ' + ${book.getAuthorName()}">author Book</p>
-                <p th:text="'Рік написання книги : ' + ${book.getYear()}">year book</p>
-                <p style="color: red" th:if="${book.getOwner()}">Ця книга зайнята</p>
-                <p style="color: green" th:unless="${book.getOwner()}">Ця книга вільна</p>
-            </div>
+    <div class="wrapper">
+        <div class="book_div" th:each="book : ${books}">
+            <span>Назва книги : </span>
+            <a th:href="@{/librarian/{id}(id = ${book.getId()})}" th:text="${book.getName()}"></a>
+            <p th:text="'Автор книги : ' + ${book.getAuthorName()}">author Book</p>
+            <p th:text="'Рік написання книги : ' + ${book.getYear()}">year book</p>
+            <p style="color: red" th:if="${book.getOwner()}">Ця книга зайнята</p>
+            <p style="color: green" th:unless="${book.getOwner()}">Ця книга вільна</p>
         </div>
     </div>
 </main>
@@ -97,11 +87,13 @@
         <div class="d-flex justify-content-center">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="/librarian">Всі книги на сторінці</a></li>
-                    <li class="page-item" th:each="pageNumber : ${totalPages}"><a
-                            th:class="'page-link ' + ${pageNumber == currentPage ? 'active' : null }"
-                            th:href="@{'/librarian?page=' + ${pageNumber} + '&items_per_page=6'}"
-                            th:text = "${pageNumber + 1}"></a></li>
+                    <li class="page-item">
+                        <a th:class="'page-link ' + ${all == true ? 'active' : ' '}"
+                           href="/librarian">Всі книги на сторінці</a></li>
+                    <li class="page-item" th:each="pageNumber : ${totalPages}">
+                        <a th:class="'page-link ' + ${pageNumber == currentPage ? 'active' : ' '}"
+                           th:href="@{'/librarian?page=' + ${pageNumber} + '&items_per_page=6'}"
+                           th:text="${pageNumber + 1}"></a></li>
 
                 </ul>
             </nav>

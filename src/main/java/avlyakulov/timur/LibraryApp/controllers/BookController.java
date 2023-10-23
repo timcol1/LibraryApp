@@ -31,8 +31,8 @@ public class BookController {
 
     @GetMapping("")
     public String getViewBooks(Model model,
-                               @RequestParam(value = "page", required = false, defaultValue = "0") Optional<Integer> page,
-                               @RequestParam(value = "items_per_page", required = false, defaultValue = "6") Optional<Integer> itemsPerPage,
+                               @RequestParam(value = "page", required = false) Optional<Integer> page,
+                               @RequestParam(value = "items_per_page", required = false) Optional<Integer> itemsPerPage,
                                @RequestParam(value = "sort", required = false) Optional<String> sortBy,
                                @RequestParam(value = "order", required = false) Optional<String> orderSort,
                                @RequestParam(value = "search", required = false) Optional<String> searchQuery) {
@@ -47,6 +47,8 @@ public class BookController {
             model.addAttribute("search", true);
         } else {
             model.addAttribute("books", bookService.getListBooks());
+            model.addAttribute("totalPages", bookService.getNumberPages(0, 6));
+            model.addAttribute("all", true);
         }
         return "books/book_list";
     }
