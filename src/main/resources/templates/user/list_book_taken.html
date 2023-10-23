@@ -33,7 +33,7 @@
 
 </head>
 <body>
-<header th:insert="template/header_user :: header"></header>
+<header th:insert="~{template/header_user :: header}"></header>
 
 <main>
     <h1 th:unless="${#lists.isEmpty(books)}" style="text-align: center">Книги які були взяті вами</h1>
@@ -59,7 +59,7 @@
     </div>
 </main>
 
-<div th:insert="template/footer :: footer"></div>
+<div th:insert="~{template/footer :: footer}"></div>
 
 </body>
 </html>

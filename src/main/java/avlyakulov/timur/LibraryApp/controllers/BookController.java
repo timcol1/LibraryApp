@@ -31,13 +31,15 @@ public class BookController {
 
     @GetMapping("")
     public String getViewBooks(Model model,
-                               @RequestParam(value = "page", required = false) Optional<Integer> page,
-                               @RequestParam(value = "items_per_page", required = false) Optional<Integer> itemsPerPage,
+                               @RequestParam(value = "page", required = false, defaultValue = "0") Optional<Integer> page,
+                               @RequestParam(value = "items_per_page", required = false, defaultValue = "6") Optional<Integer> itemsPerPage,
                                @RequestParam(value = "sort", required = false) Optional<String> sortBy,
                                @RequestParam(value = "order", required = false) Optional<String> orderSort,
                                @RequestParam(value = "search", required = false) Optional<String> searchQuery) {
         if (page.isPresent() && itemsPerPage.isPresent()) {
             model.addAttribute("books", bookService.getPageableBooks(page.get(), itemsPerPage.get()));
+            model.addAttribute("totalPages", bookService.getNumberPages(page.get(), itemsPerPage.get()));
+            model.addAttribute("currentPage", page.get());
         } else if (sortBy.isPresent() && orderSort.isPresent()) {
             model.addAttribute("books", bookService.getBooksSortByParameter(sortBy.get(), orderSort.get()));
         } else if (searchQuery.isPresent()) {

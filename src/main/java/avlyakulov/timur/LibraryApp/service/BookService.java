@@ -5,6 +5,7 @@ import avlyakulov.timur.LibraryApp.models.Person;
 import avlyakulov.timur.LibraryApp.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Service
 @Transactional(readOnly = true)
@@ -84,6 +86,10 @@ public class BookService {
 
     public List<Book> getPageableBooks(int page, int itemsPerPage) {
         return bookRepository.findAll(PageRequest.of(page, itemsPerPage, Sort.by("id"))).getContent();
+    }
+
+    public int[] getNumberPages(int page, int itemsPerPage) {
+        return IntStream.range(0, bookRepository.findAll(PageRequest.of(page, itemsPerPage, Sort.by("id"))).getTotalPages()).toArray();
     }
 
     public List<Book> getBooksSortByParameter(String sortBy, String order) {

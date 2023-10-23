@@ -37,7 +37,7 @@
     </style>
 </head>
 <body>
-<header th:insert="template/header_user :: header"></header>
+<header th:insert="~{template/header_user :: header}"></header>
 
 <main>
     <form th:action="@{/user/books}">
@@ -72,24 +72,27 @@
         </div>
     </div>
 
-    <div class="container" style="width: auto ">
-        <div class="row" style="width: auto">
-            <div class="d-flex justify-content-center">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <li class="page-item"><a class="page-link" href="/user/books">Всі книги на сторінці</a></li>
-                        <li class="page-item"><a class="page-link" href="/user/books?page=0&items_per_page=6">1</a></li>
-                        <li class="page-item"><a class="page-link" href="/user/books?page=1&items_per_page=6">2</a></li>
-                        <li class="page-item"><a class="page-link" href="/user/books?page=2&items_per_page=6">3</a></li>
-                    </ul>
-                </nav>
 
-            </div>
-        </div>
-    </div>
+
 </main>
 
-<div th:insert="template/footer :: footer"></div>
+<div class="container" style="width: auto ">
+    <div class="row" style="width: auto">
+        <div class="d-flex justify-content-center">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" href="/user/books">Всі книги на сторінці</a></li>
+                    <li class="page-item"><a class="page-link" href="/user/books?page=0&items_per_page=6">1</a></li>
+                    <li class="page-item"><a class="page-link" href="/user/books?page=1&items_per_page=6">2</a></li>
+                    <li class="page-item"><a class="page-link" href="/user/books?page=2&items_per_page=6">3</a></li>
+                </ul>
+            </nav>
+
+        </div>
+    </div>
+</div>
+
+<div th:insert="~{template/footer :: footer}"></div>
 
 </body>
 </html>

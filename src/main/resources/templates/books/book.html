@@ -21,7 +21,7 @@
 </head>
 <body>
 
-<header th:insert="template/header_librarian :: header"></header>
+<header th:insert="~{template/header_librarian :: header}"></header>
 
 <main>
 <p th:text="'Назва книги : ' + ${book.getName()}"></p>
@@ -57,7 +57,7 @@
 </main>
 
 
-<div style="padding: 20px" th:insert="template/footer :: footer"></div>
+<div th:insert="~{template/footer :: footer}"></div>
 
 
 </body>

@@ -19,7 +19,7 @@
 </head>
 <body>
 
-<header th:insert="template/header_librarian :: header"></header>
+<header th:insert="~{template/header_librarian :: header}"></header>
 
 <main>
     <div class="d-flex justify-content-center" style="margin-top: 50px">
@@ -49,7 +49,7 @@
 </main>
 
 
-<div th:insert="template/footer :: footer"></div>
+<div th:insert="~{template/footer :: footer}"></div>
 
 </body>
 </html>
