@@ -44,6 +44,7 @@ public class BookController {
             model.addAttribute("books", bookService.getBooksSortByParameter(sortBy.get(), orderSort.get()));
         } else if (searchQuery.isPresent()) {
             model.addAttribute("books", bookService.findBookByNameStartingWith(searchQuery.get()));
+            model.addAttribute("searchQuery", searchQuery.get());
             model.addAttribute("search", true);
         } else {
             model.addAttribute("books", bookService.getListBooks());
