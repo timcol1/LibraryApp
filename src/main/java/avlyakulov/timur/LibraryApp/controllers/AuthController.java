@@ -66,7 +66,7 @@ public class AuthController {
         try {
             String email = personRestorePasswordService.getEmailUserByHisUsername(username);
             model.addAttribute("email", personRestorePasswordService.codeEmail(email));
-            model.addAttribute("secret_code", "1504");
+            model.addAttribute("secret_code", personRestorePasswordService.sendSecretCodeToUserAndGetSecretCode(username));
 
         } catch (UserNotFoundException e) {
             model.addAttribute("error", e.getMessage());
