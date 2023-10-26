@@ -1,6 +1,7 @@
 package avlyakulov.timur.LibraryApp.controllers;
 
 import avlyakulov.timur.LibraryApp.models.Person;
+import avlyakulov.timur.LibraryApp.security_service.EmailServiceRestoringPassword;
 import avlyakulov.timur.LibraryApp.security_service.RegistrationService;
 import avlyakulov.timur.LibraryApp.util.PersonValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +20,14 @@ public class AuthController {
 
     private final PersonValidator personValidator;
     private final RegistrationService registrationService;
+    private final EmailServiceRestoringPassword emailServiceRestoringPassword;
 
     @Autowired
-    public AuthController(PersonValidator personValidator, RegistrationService registrationService) {
+    public AuthController(PersonValidator personValidator, RegistrationService registrationService, EmailServiceRestoringPassword emailServiceRestoringPassword) {
 
         this.personValidator = personValidator;
         this.registrationService = registrationService;
+        this.emailServiceRestoringPassword = emailServiceRestoringPassword;
     }
 
     @GetMapping("/login")
@@ -45,5 +48,16 @@ public class AuthController {
         }
         registrationService.register(person);
         return "redirect:auth/login";
+    }
+
+    @GetMapping("/restore-pass")
+    public String getRestorePassView() {
+        return "auth/restore-pass";
+    }
+
+    @PostMapping("/restore-pass")
+    public String sendSecretCodeFromClient(@ModelAttribute("email") String email) {
+        System.out.println(email);
+        return "auth/restore-pass";
     }
 }

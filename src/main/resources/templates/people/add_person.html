@@ -62,7 +62,14 @@
                 <div style="color: red" th:errors="*{phoneNumber}">Name Error</div>
             </div>
             <br>
-            <button type="submit" class="btn btn-primary">Створити людинну</button>
+            <div class="form-group">
+                <label for="email">Ведіть ваш імейл</label>
+                <input type="text" class="form-control" id="email" th:field="*{email}"
+                       placeholder="Email людини">
+                <div style="color: red" th:errors="*{email}">Name Error</div>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Створити людину</button>
         </form>
     </div>
 </main>

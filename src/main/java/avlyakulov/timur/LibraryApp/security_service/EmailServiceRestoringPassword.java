@@ -5,20 +5,28 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import java.util.Random;
+
 @Service
-public class EmailService {
+public class EmailServiceRestoringPassword {
     private final JavaMailSender javaMailSender;
 
     @Autowired
-    public EmailService(JavaMailSender javaMailSender) {
+    public EmailServiceRestoringPassword(JavaMailSender javaMailSender) {
         this.javaMailSender = javaMailSender;
     }
 
-    public void sendEmail(String to, String subject, String text) {
+    public int sendEmail(String sendToEmail) {
+        Random random = new Random();
+        int min = 100000; // Минимальное шестизначное число (100000)
+        int max = 999999; // Максимальное шестизначное число (999999)
+        int randomNumber = random.nextInt(max - min + 1) + min;
+
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(to);
-        message.setSubject(subject);
-        message.setText(text);
+        message.setTo(sendToEmail);
+        message.setSubject("Відновлення паролю");
+        message.setText("Ваш таємний код для відновлення паролю " + randomNumber);
         javaMailSender.send(message);
+        return randomNumber;
     }
 }
