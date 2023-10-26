@@ -37,6 +37,10 @@
             <input type="text" class="form-control" id="phoneNumber" th:field="*{phoneNumber}">
             <div style="color: red" th:errors="*{phoneNumber}">Name Error</div>
             <br>
+            <label for="email">Введіть email людини</label>
+            <input type="text" class="form-control" id="email" th:field="*{phoneNumber}">
+            <div style="color: red" th:errors="*{email}">Name Error</div>
+            <br>
             <input class="btn btn-primary" type="submit" value="Змінити людину">
         </form>
     </div>

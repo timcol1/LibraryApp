@@ -1,11 +1,14 @@
 package avlyakulov.timur.LibraryApp.controllers;
 
 import avlyakulov.timur.LibraryApp.models.Person;
-import avlyakulov.timur.LibraryApp.security_service.EmailServiceRestoringPassword;
+import avlyakulov.timur.LibraryApp.security_service.EmailService;
+import avlyakulov.timur.LibraryApp.security_service.PersonRestorePasswordService;
 import avlyakulov.timur.LibraryApp.security_service.RegistrationService;
+import avlyakulov.timur.LibraryApp.service.PersonService;
 import avlyakulov.timur.LibraryApp.util.PersonValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,15 +22,20 @@ import javax.validation.Valid;
 public class AuthController {
 
     private final PersonValidator personValidator;
+
+    private final PersonService personService;
     private final RegistrationService registrationService;
-    private final EmailServiceRestoringPassword emailServiceRestoringPassword;
+    private final EmailService emailService;
+
+    private final PersonRestorePasswordService personRestorePasswordService;
 
     @Autowired
-    public AuthController(PersonValidator personValidator, RegistrationService registrationService, EmailServiceRestoringPassword emailServiceRestoringPassword) {
-
+    public AuthController(PersonValidator personValidator, PersonService personService, RegistrationService registrationService, EmailService emailService, PersonRestorePasswordService personRestorePasswordService) {
         this.personValidator = personValidator;
+        this.personService = personService;
         this.registrationService = registrationService;
-        this.emailServiceRestoringPassword = emailServiceRestoringPassword;
+        this.emailService = emailService;
+        this.personRestorePasswordService = personRestorePasswordService;
     }
 
     @GetMapping("/login")
@@ -56,8 +64,9 @@ public class AuthController {
     }
 
     @PostMapping("/restore-pass")
-    public String sendSecretCodeFromClient(@ModelAttribute("email") String email) {
-        System.out.println(email);
+    public String sendSecretCodeFromClient(@ModelAttribute("username") String username, Model model) {
+        model.addAttribute("email", personRestorePasswordService.codeEmail(personRestorePasswordService.getEmailUserByHisUsername(username)));
+        model.addAttribute("secret_code", "1504");
         return "auth/restore-pass";
     }
 }
