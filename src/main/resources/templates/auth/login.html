@@ -26,11 +26,17 @@
                        placeholder="Ведіть пароль">
             </div>
             <div th:if="${param.error}" style="color: red">Неправильне ім'я або пароль</div>
+
             <span>Нема акаунту?</span>
             <a href="/auth/registration">Зареєструвати новий акаунт</a>
+            <br>
+            <span>Забули пароль?</span>
+            <a href="/auth/restore-pass">Відновити ваш пароль</a>
+
             <div style="margin: 20px" class="text-center">
                 <button style="width: 100%" type="submit" class="btn btn-lg btn-primary btn-block">Залогінитись</button>
             </div>
+
         </form>
     </div>
 </div>

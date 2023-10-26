@@ -32,6 +32,9 @@ public class Person {
     @Pattern(regexp = "\\+380[0-9]{9}", message = "Ваш номер має бути українським та починатись на +380")
     private String phoneNumber;
 
+    @Email(message = "Ведіть вірно ваш імейл")
+    private String email;
+
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
     private List<Book> bookList;
 
@@ -93,6 +96,14 @@ public class Person {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public List<Book> getBookList() {
