@@ -1,5 +1,6 @@
 package avlyakulov.timur.LibraryApp.security_service;
 
+import avlyakulov.timur.LibraryApp.exceptions.UserNotFoundException;
 import avlyakulov.timur.LibraryApp.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,12 @@ public class PersonRestorePasswordService {
     }
 
     public String getEmailUserByHisUsername(String username) {
-        return personRepository.getEmailByUsername(username);
+        String email = personRepository.getEmailByUsername(username);
+        if (email == null || email.isBlank()) {
+            throw new UserNotFoundException("Користувач з таким логіном не існує");
+        } else {
+            return email;
+        }
     }
 
     public int sendSecretCodeToUserAndGetSecretCode(String username) {

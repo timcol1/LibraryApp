@@ -1,5 +1,6 @@
 package avlyakulov.timur.LibraryApp.controllers;
 
+import avlyakulov.timur.LibraryApp.exceptions.UserNotFoundException;
 import avlyakulov.timur.LibraryApp.models.Person;
 import avlyakulov.timur.LibraryApp.security_service.EmailService;
 import avlyakulov.timur.LibraryApp.security_service.PersonRestorePasswordService;
@@ -65,8 +66,13 @@ public class AuthController {
 
     @PostMapping("/restore-pass")
     public String sendSecretCodeFromClient(@ModelAttribute("username") String username, Model model) {
-        model.addAttribute("email", personRestorePasswordService.codeEmail(personRestorePasswordService.getEmailUserByHisUsername(username)));
-        model.addAttribute("secret_code", "1504");
+        try {
+            model.addAttribute("email", personRestorePasswordService.codeEmail(personRestorePasswordService.getEmailUserByHisUsername(username)));
+            model.addAttribute("secret_code", "1504");
+
+        } catch (UserNotFoundException e) {
+            model.addAttribute("error", e.getMessage());
+        }
         return "auth/restore-pass";
     }
 }

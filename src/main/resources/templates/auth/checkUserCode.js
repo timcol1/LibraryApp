@@ -1,9 +1,9 @@
 function checkUserCode() {
-    let userInput = document.getElementById("code");
-    let secretCode = document.getElementById("secret_code");
+    var userInput = document.getElementById("code");
+    var secretCode = document.getElementById("secret_code");
     // Получить значение, введенное пользователем
-    let userValue = userInput.value;
-    let secretCodeValue = secretCode.value;
+    var userValue = userInput.value;
+    var secretCodeValue = secretCode.value;
 
     // Выполнить проверку, например, проверить, что введенное значение не пустое
     if (userValue.trim() === "" || userValue !== secretCodeValue) {
