@@ -1,17 +1,23 @@
 package avlyakulov.timur.LibraryApp.security_service;
 
 import avlyakulov.timur.LibraryApp.exceptions.UserNotFoundException;
+import avlyakulov.timur.LibraryApp.models.Person;
 import avlyakulov.timur.LibraryApp.repository.PersonRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional(readOnly = true)
 public class PersonRestorePasswordService {
     private final PersonRepository personRepository;
+    private final PasswordEncoder passwordEncoder;
 
     private final EmailService emailService;
 
-    public PersonRestorePasswordService(PersonRepository personRepository, EmailService emailService) {
+    public PersonRestorePasswordService(PersonRepository personRepository, PasswordEncoder passwordEncoder, EmailService emailService) {
         this.personRepository = personRepository;
+        this.passwordEncoder = passwordEncoder;
         this.emailService = emailService;
     }
 
@@ -37,5 +43,12 @@ public class PersonRestorePasswordService {
             codedEmail[i] = '*';
         }
         return String.valueOf(codedEmail);
+    }
+
+    @Transactional
+    public void restorePasswordByUsername(Person person) {
+        Person personInDB = personRepository.findByUsername(person.getUsername()).get();
+        String password = passwordEncoder.encode(person.getPassword());
+        personInDB.setPassword(password);
     }
 }
