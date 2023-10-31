@@ -1,13 +1,9 @@
-function checkUserCode() {
-    var userInput = document.getElementById("code");
-    var secretCode = document.getElementById("secret_code");
-
-    var userValue = userInput.value;
-    var secretCodeValue = secretCode.value;
-
-    if (userValue.trim() === "" || userValue !== secretCodeValue) {
-        alert("Ваше значення невірне!");
+function compareCodeFromEmailWithUserCode() {
+    var input1 = document.getElementById("code").value;
+    var input2 = document.getElementById("secret_code").value;
+    if (input1 === input2) {
+        document.getElementById("restore-form").submit();
     } else {
-        alert("Введенное значение: " + userValue);
+        document.getElementById("result").innerHTML = "Було ведено невірне значення";
     }
 }

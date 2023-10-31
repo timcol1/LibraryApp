@@ -1,14 +1,19 @@
 <div th:fragment="header">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <h2>Бібліотека</h2>
+        <h2><a style="text-decoration: none; color: inherit;"
+               href="/librarian">Бібліотека</a></h2>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav">
-                <li style="margin-left: 30px" class="nav-item">
-                    <a class="nav-link ml-4" href="/librarian">Книги</a>
+                <li onclick="toggleDropdown(this)" class="nav-item dropdown" style="margin-left: 30px">
+                    <a class="nav-link dropdown-toggle" id="dropdown03" data-toggle="dropdown">Книги</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown03">
+                        <a class="dropdown-item" href="/librarian">Книги в бібліотеці</a>
+                        <a class="dropdown-item" href="/librarian/overdue">Прострочені книги</a>
+                    </div>
                 </li>
                 <li style="margin-left: 30px" class="nav-item">
                     <a class="nav-link ml-4" href="/people">Люди</a>
@@ -39,4 +44,19 @@
             <input style="margin-right: 30px" type="submit" class="btn btn-primary" value="Розлогінитись"/>
         </form>
     </nav>
+    <script type="text/javascript">
+        function toggleDropdown(liElement) {
+            // Находим элемент с классом "nav-item dropdown"
+            var dropdownElement = document.querySelector(".nav-item.dropdown");
+            var dropdownElement2 = document.querySelector(".dropdown-menu");
+
+            // Проверяем наличие элемента
+            if (dropdownElement && dropdownElement2) {
+                // Переключаем классы
+                dropdownElement.classList.toggle("show");
+                dropdownElement2.classList.toggle("show");
+            }
+        }
+    </script>
 </div>
+

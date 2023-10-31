@@ -12,6 +12,7 @@
             height: 100vh;
             font-size: 30px;
         }
+
         main {
             flex: 1 1 auto;
         }
@@ -54,7 +55,7 @@
             <option value="asc">Зростаючий</option>
         </select>
 
-        <button type="submit">Застосувати</button>
+        <button class="btn btn-primary" type="submit">Застосувати</button>
     </form>
 
 
@@ -73,7 +74,6 @@
     </div>
 
 
-
 </main>
 
 <div class="container" style="width: auto">
@@ -86,7 +86,7 @@
                     <li class="page-item" th:each="pageNumber : ${totalPages}"><a
                             th:class="'page-link ' + ${pageNumber == currentPage ? 'active' : ' '}"
                             th:href="@{'/user/books?page=' + ${pageNumber} + '&items_per_page=6'}"
-                            th:text = "${pageNumber + 1}"></a></li>
+                            th:text="${pageNumber + 1}"></a></li>
 
                 </ul>
             </nav>
