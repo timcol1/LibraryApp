@@ -33,6 +33,7 @@ public class Person {
     private String phoneNumber;
 
     @Email(message = "Ведіть вірно ваш імейл")
+    @NotEmpty(message = "Email не може бути пустим")
     private String email;
 
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
